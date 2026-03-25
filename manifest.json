@@ -1,0 +1,10 @@
+{
+  "name": "Life Stamp",
+  "short_name": "LifeStamp",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#09111f",
+  "theme_color": "#0b1220",
+  "description": "Capture moments instantly with one tap. Life Stamp logs your time, anytime.",
+  "icons": []
+}
