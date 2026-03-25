@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>Life Stamp</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">One-tap timestamp tracker</p>
+        <h1>Life Stamp</h1>
+        <p class="brand-line">Simple. Instant. Yours.</p>
+        <p class="subtext">Capture moments instantly. One tap saves your time forever.</p>
+      </div>
+      <button id="installBtn" class="secondary hidden" type="button">Install App</button>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="section-head">
+          <div>
+            <h2>Quick Tap Buttons</h2>
+            <p class="muted">Use this for daily life, routines, meds, chores, work, caregiving, business, or anything else you want to timestamp fast.</p>
+          </div>
+          <button id="resetDefaultsBtn" class="secondary" type="button">Reset Defaults</button>
+        </div>
+
+        <div id="buttonsGrid" class="button-grid"></div>
+      </section>
+
+      <section class="card">
+        <div class="section-head">
+          <div>
+            <h2>Add Your Own Button</h2>
+            <p class="muted">Examples: Took Medicine, Fed Animals, Started Laundry, Left Home, Watered Plants</p>
+          </div>
+        </div>
+
+        <form id="buttonForm" class="button-form">
+          <input id="buttonName" name="buttonName" maxlength="28" placeholder="Enter button name" required />
+          <button type="submit">Add Button</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="section-head stack-mobile">
+          <div>
+            <h2>Timestamp Log</h2>
+            <p class="muted">Newest entries appear first. Everything is saved on this device.</p>
+          </div>
+          <div class="action-row">
+            <button id="exportTxtBtn" class="secondary" type="button">Export TXT</button>
+            <button id="exportCsvBtn" class="secondary" type="button">Export CSV</button>
+            <button id="clearLogBtn" class="danger" type="button">Clear Log</button>
+          </div>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <p>No timestamps yet. Tap a button above to start logging.</p>
+        </div>
+
+        <div id="logList" class="log-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <template id="buttonTemplate">
+    <div class="tap-button-wrap">
+      <button class="tap-button" type="button"></button>
+      <button class="icon-button remove-button" type="button" aria-label="Remove button" title="Remove button">×</button>
+    </div>
+  </template>
+
+  <template id="logTemplate">
+    <article class="log-item">
+      <div>
+        <h3 class="log-label"></h3>
+        <p class="log-time"></p>
+      </div>
+      <button class="icon-button delete-log" type="button" aria-label="Delete log entry" title="Delete log entry">×</button>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
