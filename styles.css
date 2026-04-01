@@ -1,15 +1,28 @@
 :root {
-  --bg: #09111f;
-  --panel: #101b2f;
-  --panel-2: #13213a;
-  --line: rgba(255,255,255,0.1);
-  --text: #ecf3ff;
-  --muted: #aebed8;
-  --accent: #d7263d;
-  --accent-2: #1d8fe1;
-  --good: #16a34a;
-  --danger: #7f1d1d;
-  --shadow: 0 18px 40px rgba(0,0,0,0.25);
+  --bg-top: #120904;
+  --bg-mid: #24130c;
+  --bg-bottom: #3a1d10;
+
+  --panel: rgba(33, 18, 12, 0.96);
+  --panel-2: rgba(45, 24, 15, 0.98);
+  --line: rgba(255, 222, 186, 0.18);
+
+  --text: #f7ead7;
+  --muted: #d7bda0;
+
+  --accent: #cf6e24;
+  --accent-dark: #9a4718;
+  --accent-light: #e9a35e;
+
+  --secondary: #3a2218;
+  --secondary-dark: #26150e;
+
+  --danger: #8a281d;
+  --danger-dark: #64160f;
+
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --glow: 0 0 0 1px rgba(255, 222, 186, 0.08);
+
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -17,10 +30,15 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, #08101d 0%, #0d1729 100%);
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(233, 163, 94, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(207, 110, 36, 0.10), transparent 24%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
   color: var(--text);
 }
 
@@ -28,7 +46,8 @@ body {
   min-height: 100vh;
 }
 
-button, input {
+button,
+input {
   font: inherit;
 }
 
@@ -49,24 +68,35 @@ button, input {
 .eyebrow {
   margin: 0 0 6px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   font-size: 0.72rem;
-  color: #fca5a5;
+  color: var(--accent-light);
+  font-weight: 700;
 }
 
-h1, h2, h3, p {
+h1,
+h2,
+h3,
+p {
   margin-top: 0;
 }
 
 h1 {
   margin-bottom: 6px;
   font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  margin-bottom: 6px;
+  color: var(--text);
 }
 
 .brand-line {
   margin: 0 0 10px;
-  color: #dbe7ff;
-  font-weight: 600;
+  color: #f2dfc7;
+  font-weight: 700;
 }
 
 .subtext {
@@ -76,12 +106,13 @@ h1 {
 }
 
 .card {
-  background: rgba(16,27,47,0.92);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 24px;
   padding: 18px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), var(--glow);
   margin-bottom: 18px;
+  backdrop-filter: blur(2px);
 }
 
 .section-head {
@@ -104,34 +135,51 @@ h1 {
 .button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .tap-button-wrap {
   position: relative;
+  border-radius: 20px;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.tap-button-wrap.dragging {
+  opacity: 0.75;
+  transform: scale(0.98);
+}
+
+.tap-button-wrap.drag-over .tap-button {
+  outline: 2px dashed rgba(255, 228, 196, 0.55);
+  outline-offset: 4px;
 }
 
 .tap-button {
   width: 100%;
-  min-height: 88px;
+  min-height: 92px;
   padding: 14px 18px;
-  border: 0;
-  border-radius: 18px;
-  color: white;
-  background: linear-gradient(135deg, #1d8fe1 0%, #0f4f9d 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 10px 24px rgba(0,0,0,0.18);
+  border: 1px solid rgba(255, 222, 186, 0.16);
+  border-radius: 20px;
+  color: #fff4e8;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 10px 24px rgba(0, 0, 0, 0.24);
   font-weight: 700;
   font-size: 1.05rem;
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+  touch-action: none;
 }
 
 .tap-button:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .tap-button:hover {
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 14px 28px rgba(0,0,0,0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 28px rgba(0, 0, 0, 0.30);
 }
 
 .button-form {
@@ -142,41 +190,58 @@ h1 {
 
 input {
   flex: 1 1 240px;
-  min-height: 50px;
-  border-radius: 14px;
+  min-height: 52px;
+  border-radius: 16px;
   border: 1px solid var(--line);
-  background: var(--panel-2);
+  background: linear-gradient(180deg, #1f110c 0%, #160c08 100%);
   color: var(--text);
   padding: 0 14px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+input::placeholder {
+  color: rgba(215, 189, 160, 0.7);
 }
 
 button {
-  min-height: 50px;
-  border: 0;
-  border-radius: 14px;
+  min-height: 52px;
+  border: 1px solid rgba(255, 222, 186, 0.14);
+  border-radius: 16px;
   padding: 0 16px;
   font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #d7263d 0%, #931626 100%);
+  color: #fff4e8;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 8px 18px rgba(0, 0, 0, 0.22);
 }
 
 button.secondary {
-  background: #1b2b48;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
   border: 1px solid var(--line);
+  color: var(--text);
 }
 
 button.danger {
-  background: linear-gradient(135deg, #8b1e1e 0%, #5d1010 100%);
+  background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
+}
+
+button:hover {
+  filter: brightness(1.04);
+}
+
+button:active {
+  transform: scale(0.985);
 }
 
 .icon-button {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 30px;
-  min-height: 30px;
-  height: 30px;
+  width: 34px;
+  min-height: 34px;
+  height: 34px;
   border-radius: 999px;
   padding: 0;
   font-size: 1rem;
@@ -184,12 +249,14 @@ button.danger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(9,17,31,0.8);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(24, 12, 8, 0.88);
+  border: 1px solid rgba(255, 222, 186, 0.16);
+  color: #fff4e8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
 }
 
 .remove-button {
-  background: rgba(9,17,31,0.84);
+  background: rgba(24, 12, 8, 0.9);
 }
 
 .action-row {
@@ -203,11 +270,12 @@ button.danger {
 }
 
 .empty-state {
-  border: 1px dashed var(--line);
+  border: 1px dashed rgba(255, 222, 186, 0.14);
   border-radius: 18px;
   padding: 18px;
   text-align: center;
   color: var(--muted);
+  background: rgba(255, 255, 255, 0.01);
 }
 
 .log-list {
@@ -223,13 +291,15 @@ button.danger {
   gap: 12px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(19,33,58,0.95), rgba(15,25,44,0.95));
+  background: linear-gradient(180deg, rgba(43, 22, 15, 0.96), rgba(28, 14, 9, 0.96));
   border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 .log-label {
   margin-bottom: 6px;
   font-size: 1.05rem;
+  color: var(--text);
 }
 
 .log-time {
@@ -256,5 +326,9 @@ button.danger {
   .action-row > *,
   .button-form > * {
     flex: 1 1 100%;
+  }
+
+  .tap-button {
+    min-height: 86px;
   }
 }
