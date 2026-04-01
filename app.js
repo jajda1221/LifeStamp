@@ -1,3 +1,4 @@
+const isUnlocked = localStorage.getItem('lifeStampUnlocked') === 'true';
 const STORAGE_KEYS = {
   buttons: 'lifeStampButtons',
   logs: 'lifeStampLogs'
