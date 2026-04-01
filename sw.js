@@ -1,3 +1,4 @@
+const isUnlocked = localStorage.getItem('lifeStampUnlocked') === 'true';
 const CACHE_NAME = 'life-stamp-v1';
 const ASSETS = [
   './',
