@@ -7,7 +7,7 @@ const params = new URLSearchParams(window.location.search);
 
 if (params.get('unlock') === 'true') {
   localStorage.setItem('lifeStampUnlocked', 'true');
-  alert("Unlocked! Thank you for your purchase.");
+  alert('Unlocked! Thank you for your purchase.');
 }
 
 function getIsUnlocked() {
@@ -26,6 +26,9 @@ const defaultButtons = [
 let buttons = loadButtons();
 let logs = loadLogs();
 let deferredPrompt = null;
+
+let draggedButtonId = null;
+let touchDragButtonId = null;
 
 const buttonsGrid = document.getElementById('buttonsGrid');
 const logList = document.getElementById('logList');
@@ -56,7 +59,7 @@ buttonForm.addEventListener('submit', (event) => {
   const label = buttonNameInput.value.trim();
   if (!label) return;
 
-  buttons.unshift({
+  buttons.push({
     id: crypto.randomUUID(),
     label
   });
@@ -128,13 +131,22 @@ function renderButtons() {
     if (!isUnlocked && index >= 3) return;
 
     const fragment = buttonTemplate.content.cloneNode(true);
+    const wrap = fragment.querySelector('.tap-button-wrap');
     const tapButton = fragment.querySelector('.tap-button');
     const removeButton = fragment.querySelector('.remove-button');
 
+    wrap.dataset.id = button.id;
+    wrap.draggable = true;
+    wrap.classList.add('draggable-button-wrap');
+
     tapButton.textContent = button.label;
+    tapButton.dataset.id = button.id;
+
     tapButton.addEventListener('click', () => logTimestamp(button.label));
 
-    removeButton.addEventListener('click', () => {
+    removeButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+
       const confirmed = window.confirm(`Remove "${button.label}"?`);
       if (!confirmed) return;
 
@@ -143,7 +155,112 @@ function renderButtons() {
       renderButtons();
     });
 
+    addDragEvents(wrap);
+    addTouchDragEvents(wrap);
+
     buttonsGrid.appendChild(fragment);
+  });
+}
+
+function addDragEvents(wrap) {
+  wrap.addEventListener('dragstart', () => {
+    draggedButtonId = wrap.dataset.id;
+    wrap.classList.add('dragging');
+  });
+
+  wrap.addEventListener('dragend', () => {
+    draggedButtonId = null;
+    wrap.classList.remove('dragging');
+    clearDragOverStates();
+  });
+
+  wrap.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    if (wrap.dataset.id !== draggedButtonId) {
+      wrap.classList.add('drag-over');
+    }
+  });
+
+  wrap.addEventListener('dragleave', () => {
+    wrap.classList.remove('drag-over');
+  });
+
+  wrap.addEventListener('drop', (event) => {
+    event.preventDefault();
+
+    const targetId = wrap.dataset.id;
+    moveButton(draggedButtonId, targetId);
+  });
+}
+
+function addTouchDragEvents(wrap) {
+  wrap.addEventListener(
+    'touchstart',
+    () => {
+      touchDragButtonId = wrap.dataset.id;
+      wrap.classList.add('dragging');
+    },
+    { passive: true }
+  );
+
+  wrap.addEventListener(
+    'touchmove',
+    (event) => {
+      if (!touchDragButtonId) return;
+
+      const touch = event.changedTouches[0];
+      const target = document.elementFromPoint(touch.clientX, touch.clientY);
+      const targetWrap = target?.closest('.draggable-button-wrap');
+
+      clearDragOverStates();
+
+      if (targetWrap && targetWrap.dataset.id !== touchDragButtonId) {
+        targetWrap.classList.add('drag-over');
+      }
+    },
+    { passive: true }
+  );
+
+  wrap.addEventListener(
+    'touchend',
+    (event) => {
+      if (!touchDragButtonId) return;
+
+      const touch = event.changedTouches[0];
+      const target = document.elementFromPoint(touch.clientX, touch.clientY);
+      const targetWrap = target?.closest('.draggable-button-wrap');
+
+      wrap.classList.remove('dragging');
+
+      if (targetWrap && targetWrap.dataset.id !== touchDragButtonId) {
+        moveButton(touchDragButtonId, targetWrap.dataset.id);
+      }
+
+      touchDragButtonId = null;
+      clearDragOverStates();
+    },
+    { passive: true }
+  );
+}
+
+function moveButton(fromId, toId) {
+  if (!fromId || !toId || fromId === toId) return;
+
+  const fromIndex = buttons.findIndex((button) => button.id === fromId);
+  const toIndex = buttons.findIndex((button) => button.id === toId);
+
+  if (fromIndex === -1 || toIndex === -1) return;
+
+  const [movedButton] = buttons.splice(fromIndex, 1);
+  buttons.splice(toIndex, 0, movedButton);
+
+  persistButtons();
+  renderButtons();
+}
+
+function clearDragOverStates() {
+  document.querySelectorAll('.draggable-button-wrap.drag-over').forEach((element) => {
+    element.classList.remove('drag-over');
   });
 }
 
@@ -238,11 +355,11 @@ function csvSafe(values) {
 
 function showUnlock() {
   const confirmUnlock = window.confirm(
-    "Unlock Life Stamp for $1.99?\n\nUnlimited buttons. Full access."
+    'Unlock Life Stamp for $1.99?\n\nUnlimited buttons. Full access.'
   );
 
   if (confirmUnlock) {
-    window.location.href = "https://buy.stripe.com/7sY3cx8dV3ET2NL6EAcV200";
+    window.location.href = 'https://buy.stripe.com/7sY3cx8dV3ET2NL6EAcV2';
   }
 }
 
