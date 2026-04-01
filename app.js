@@ -1,8 +1,18 @@
-const isUnlocked = localStorage.getItem('lifeStampUnlocked') === 'true';
 const STORAGE_KEYS = {
   buttons: 'lifeStampButtons',
   logs: 'lifeStampLogs'
 };
+
+const params = new URLSearchParams(window.location.search);
+
+if (params.get('unlock') === 'true') {
+  localStorage.setItem('lifeStampUnlocked', 'true');
+  alert("Unlocked! Thank you for your purchase.");
+}
+
+function getIsUnlocked() {
+  return localStorage.getItem('lifeStampUnlocked') === 'true';
+}
 
 const defaultButtons = [
   { id: crypto.randomUUID(), label: 'Woke Up' },
@@ -38,6 +48,11 @@ setupInstallPrompt();
 buttonForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
+  if (!getIsUnlocked()) {
+    showUnlock();
+    return;
+  }
+
   const label = buttonNameInput.value.trim();
   if (!label) return;
 
@@ -70,7 +85,7 @@ resetDefaultsBtn.addEventListener('click', () => {
   const confirmed = window.confirm('Reset buttons to the default set? Your custom buttons will be removed.');
   if (!confirmed) return;
 
-  buttons = structuredClone(defaultButtons).map(button => ({
+  buttons = structuredClone(defaultButtons).map((button) => ({
     ...button,
     id: crypto.randomUUID()
   }));
@@ -107,8 +122,11 @@ function persistLogs() {
 
 function renderButtons() {
   buttonsGrid.innerHTML = '';
+  const isUnlocked = getIsUnlocked();
 
-  buttons.forEach((button) => {
+  buttons.forEach((button, index) => {
+    if (!isUnlocked && index >= 3) return;
+
     const fragment = buttonTemplate.content.cloneNode(true);
     const tapButton = fragment.querySelector('.tap-button');
     const removeButton = fragment.querySelector('.remove-button');
@@ -216,6 +234,16 @@ function exportFile(type) {
 
 function csvSafe(values) {
   return values.map((value) => `"${String(value).replaceAll('"', '""')}"`);
+}
+
+function showUnlock() {
+  const confirmUnlock = window.confirm(
+    "Unlock Life Stamp for $1.99?\n\nUnlimited buttons. Full access."
+  );
+
+  if (confirmUnlock) {
+    window.location.href = "PUT_YOUR_STRIPE_LINK_HERE";
+  }
 }
 
 function registerServiceWorker() {
