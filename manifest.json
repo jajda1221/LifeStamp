@@ -5,6 +5,17 @@
   "display": "standalone",
   "background_color": "#09111f",
   "theme_color": "#0b1220",
-  "description": "Capture moments instantly with one tap. Life Stamp logs your time, anytime.",
-  "icons": []
+  "description": "Capture moments instantly with one tap.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
