@@ -3,31 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="theme-color" content="#24130c" />
   <title>Life Stamp</title>
   <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
   <div class="app-shell">
     <header class="app-header">
-      <div>
-        <p class="eyebrow">One-tap timestamp tracker</p>
-        <h1>Life Stamp</h1>
-        <p class="brand-line">Simple. Instant. Yours.</p>
-        <p class="subtext">Capture moments instantly. One tap saves your time forever.</p>
+      <div class="header-brand">
+        <img src="icon-192.png" alt="Life Stamp icon" class="app-icon" />
+        <div class="header-copy">
+          <p class="eyebrow">One-Tap Timestamp Tracker</p>
+          <h1>Life Stamp</h1>
+          <p class="brand-line">Simple. Instant. Yours.</p>
+          <p class="subtext">
+            Tap once to save the exact time. Great for meds, routines, pets,
+            chores, caregiving, and daily tasks.
+          </p>
+        </div>
       </div>
+
       <button id="installBtn" class="secondary hidden" type="button">Install App</button>
     </header>
 
     <main>
+      <section class="card hero-card">
+        <div class="hero-grid">
+          <div>
+            <h2>Track anything with one tap</h2>
+            <p class="muted">
+              Use the buttons below to log the exact time something happens.
+              Drag to rearrange your buttons anytime.
+            </p>
+            <div class="hero-badges">
+              <span class="badge">Fast</span>
+              <span class="badge">Simple</span>
+              <span class="badge">Saved on device</span>
+            </div>
+          </div>
+
+          <div class="mini-preview">
+            <div class="mini-preview-header">Example Buttons</div>
+            <div class="mini-preview-buttons">
+              <span>Took Medicine</span>
+              <span>Fed Animals</span>
+              <span>Started Laundry</span>
+              <span>Left Home</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="card">
         <div class="section-head">
           <div>
             <h2>Quick Tap Buttons</h2>
-            <p class="muted">Use this for daily life, routines, meds, chores, work, caregiving, business, or anything else you want to timestamp fast.</p>
+            <p class="muted">
+              Tap to save a time. Drag to rearrange the order.
+            </p>
           </div>
           <button id="resetDefaultsBtn" class="secondary" type="button">Reset Defaults</button>
         </div>
@@ -39,12 +75,20 @@
         <div class="section-head">
           <div>
             <h2>Add Your Own Button</h2>
-            <p class="muted">Examples: Took Medicine, Fed Animals, Started Laundry, Left Home, Watered Plants</p>
+            <p class="muted">
+              Create your own button names for what you track most.
+            </p>
           </div>
         </div>
 
         <form id="buttonForm" class="button-form">
-          <input id="buttonName" name="buttonName" maxlength="28" placeholder="Enter button name" required />
+          <input
+            id="buttonName"
+            name="buttonName"
+            maxlength="28"
+            placeholder="Enter button name"
+            required
+          />
           <button type="submit">Add Button</button>
         </form>
       </section>
@@ -53,7 +97,9 @@
         <div class="section-head stack-mobile">
           <div>
             <h2>Timestamp Log</h2>
-            <p class="muted">Newest entries appear first. Everything is saved on this device.</p>
+            <p class="muted">
+              Newest entries appear first. Export anytime.
+            </p>
           </div>
           <div class="action-row">
             <button id="exportTxtBtn" class="secondary" type="button">Export TXT</button>
@@ -74,7 +120,14 @@
   <template id="buttonTemplate">
     <div class="tap-button-wrap">
       <button class="tap-button" type="button"></button>
-      <button class="icon-button remove-button" type="button" aria-label="Remove button" title="Remove button">×</button>
+      <button
+        class="icon-button remove-button"
+        type="button"
+        aria-label="Remove button"
+        title="Remove button"
+      >
+        ×
+      </button>
     </div>
   </template>
 
@@ -84,7 +137,14 @@
         <h3 class="log-label"></h3>
         <p class="log-time"></p>
       </div>
-      <button class="icon-button delete-log" type="button" aria-label="Delete log entry" title="Delete log entry">×</button>
+      <button
+        class="icon-button delete-log"
+        type="button"
+        aria-label="Delete log entry"
+        title="Delete log entry"
+      >
+        ×
+      </button>
     </article>
   </template>
 
