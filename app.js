@@ -242,7 +242,7 @@ function showUnlock() {
   );
 
   if (confirmUnlock) {
-    window.location.href = "PUT_YOUR_STRIPE_LINK_HERE";
+    window.location.href = "https://buy.stripe.com/7sY3cx8dV3ET2NL6EAcV200";
   }
 }
 
