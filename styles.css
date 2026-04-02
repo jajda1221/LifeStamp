@@ -22,8 +22,6 @@
 
   --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
   --glow: 0 0 0 1px rgba(255, 222, 186, 0.08);
-
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -40,6 +38,7 @@ body {
     radial-gradient(circle at top right, rgba(207, 110, 36, 0.10), transparent 24%),
     linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
   color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -54,7 +53,22 @@ input {
 .app-shell {
   max-width: 920px;
   margin: 0 auto;
-  padding: 18px;
+  padding: 14px;
+}
+
+.hero-image-wrap {
+  max-width: 680px;
+  margin: 6px auto 14px auto;
+  padding: 0;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .app-header {
@@ -63,6 +77,10 @@ input {
   align-items: flex-start;
   gap: 14px;
   margin-bottom: 18px;
+}
+
+.header-copy {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -130,6 +148,69 @@ h2 {
 .muted {
   color: var(--muted);
   line-height: 1.45;
+}
+
+.hero-card {
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(233, 163, 94, 0.14);
+  border: 1px solid rgba(255, 222, 186, 0.18);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.mini-preview {
+  border-radius: 22px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(55, 29, 18, 0.98), rgba(33, 18, 12, 0.96));
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.mini-preview-header {
+  margin-bottom: 12px;
+  color: var(--accent-light);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.mini-preview-buttons {
+  display: grid;
+  gap: 10px;
+}
+
+.mini-preview-buttons span {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(207, 110, 36, 0.95), rgba(154, 71, 24, 0.95));
+  color: #fff4e8;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .button-grid {
@@ -330,5 +411,14 @@ button:active {
 
   .tap-button {
     min-height: 86px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image-wrap {
+    max-width: 100%;
+    margin: 6px 0 14px 0;
   }
 }
