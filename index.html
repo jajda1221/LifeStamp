@@ -12,18 +12,19 @@
 </head>
 <body>
   <div class="app-shell">
+    <div class="hero-image-wrap">
+      <img src="icon-512.png" class="hero-image" alt="Life Stamp image" />
+    </div>
+
     <header class="app-header">
-      <div class="header-brand">
-        <img src="icon-192.png" alt="Life Stamp icon" class="app-icon" />
-        <div class="header-copy">
-          <p class="eyebrow">One-Tap Timestamp Tracker</p>
-          <h1>Life Stamp</h1>
-          <p class="brand-line">Simple. Instant. Yours.</p>
-          <p class="subtext">
-            Tap once to save the exact time. Great for meds, routines, pets,
-            chores, caregiving, and daily tasks.
-          </p>
-        </div>
+      <div class="header-copy">
+        <p class="eyebrow">One-Tap Timestamp Tracker</p>
+        <h1>Life Stamp</h1>
+        <p class="brand-line">Simple. Instant. Yours.</p>
+        <p class="subtext">
+          Tap once to save the exact time. Great for meds, routines, pets,
+          chores, caregiving, and daily tasks.
+        </p>
       </div>
 
       <button id="installBtn" class="secondary hidden" type="button">Install App</button>
@@ -101,6 +102,7 @@
               Newest entries appear first. Export anytime.
             </p>
           </div>
+
           <div class="action-row">
             <button id="exportTxtBtn" class="secondary" type="button">Export TXT</button>
             <button id="exportCsvBtn" class="secondary" type="button">Export CSV</button>
@@ -118,7 +120,7 @@
   </div>
 
   <template id="buttonTemplate">
-    <div class="tap-button-wrap">
+    <div class="tap-button-wrap draggable-button-wrap">
       <button class="tap-button" type="button"></button>
       <button
         class="icon-button remove-button"
