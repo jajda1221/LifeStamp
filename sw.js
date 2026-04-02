@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'life-stamp-v3';
+const CACHE_NAME = 'life-stamp-v4';
 const ASSETS = [
   './',
   './index.html',
