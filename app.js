@@ -17,10 +17,7 @@ function getIsUnlocked() {
 const defaultButtons = [
   { id: crypto.randomUUID(), label: 'Woke Up' },
   { id: crypto.randomUUID(), label: 'Took Medicine' },
-  { id: crypto.randomUUID(), label: 'Fed Animals' },
-  { id: crypto.randomUUID(), label: 'Started Laundry' },
-  { id: crypto.randomUUID(), label: 'Left Home' },
-  { id: crypto.randomUUID(), label: 'Went to Bed' }
+  { id: crypto.randomUUID(), label: 'Fed Animals' }
 ];
 
 let buttons = loadButtons();
@@ -51,7 +48,9 @@ setupInstallPrompt();
 buttonForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  if (!getIsUnlocked()) {
+  const isUnlocked = getIsUnlocked();
+
+  if (!isUnlocked && buttons.length >= 3) {
     showUnlock();
     return;
   }
@@ -187,7 +186,6 @@ function addDragEvents(wrap) {
 
   wrap.addEventListener('drop', (event) => {
     event.preventDefault();
-
     const targetId = wrap.dataset.id;
     moveButton(draggedButtonId, targetId);
   });
